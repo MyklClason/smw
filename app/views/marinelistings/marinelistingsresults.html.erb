@@ -1,0 +1,313 @@
+<div id="content">
+  <div class="page">
+    <div class="rightcontent">
+      <div class="contact"> <span>Find Your</span><span class="whip"> Whip</span>
+        <div class="checkbox">
+          <form action="#">
+            <div id="marine">
+              <%= form_tag(marinelistingsresults_marinelistings_path(:listing_type=>'marine')) do |f| %>
+                  <div class="question">
+                    <label class="question">01. Category</label>
+                    <div class="select selectParent">
+                      <%= select_tag(:category, options_for_select(@marinecategories.map {|s| [s.category, s.category]},:selected => params[:category]),
+                                     {:prompt => "-Select a Category", :id => 'marine_category'})%>
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+
+                  <div class="question">
+                    <label class="question">02.Sub Category</label>
+                    <div class="select selectParent">
+                      <%= select_tag(:sub_category, options_for_select(@marinesubcategories.map {|s| [s.subcategory, s.subcategory]},:selected => params[:sub_category]),
+                                     :prompt => "-Select a Category First", :id => 'marine_subcategory')  %>
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+
+                  <div class="question">
+                    <label class="question">03. Make</label>
+                    <div class="select selectParent">
+                      <%= select_tag :make, options_for_select(@marinemakes.map {|s| [s.make, s.make]},:selected => params[:make]),
+                                     {prompt: "Select a Make"} %>
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+                  <!--
+                <div class="question">
+                  <label class="question">04. Price</label>
+                  <div class="select selectParent">
+                    <%#= text_field_tag :price_lt, '', :size => 6, :value => params[:price_lt] %><br/>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+                -->
+                  <div class="question">
+                    <label class="question">04. State</label>
+                    <div class="select selectParent">
+                      <%= select_tag(:state,options_for_select(Listing::STATES,:selected => params[:state]) , {:prompt => "-Select State"}) %>
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+
+                  <%#= hidden_field_tag :listing_type, "marine" %>
+                  <%#= hidden_field_tag :listing_type, Date.today %>
+                  <%= link_to "Advanced Search", searchmarine_path, :class=>"advance"%>
+                  <%= hidden_field_tag :listing_type, "marine" %>
+                  <%= submit_tag "Basic Search", class: "submit" %>
+              <% end %>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="ad1"> <img src="/assets/ad1.jpg" width="300" height="125" /> </div>
+      <div class="ad2"> <img src="/assets/ad2.jpg" width="300" height="125" /> </div>
+      <div class="ad3"> <img src="/assets/ad3.jpg" width="300" height="250" /> </div>
+    </div>
+    <div class="leftcontent">
+      <div class="lsitarea"> <img class="p_img" src="/assets/listingpageimage.png" width="725" height="276" />
+        <div class="pagination">
+          <!--
+          <div class="paging">
+            <span class="font">Page 01 of 06</span> <img width="171" height="24" src="/assets/pagination.png">
+          </div>
+
+
+          <div class="short_by">
+            <span class="sort font">Sort by:</span>
+            <form class="float_left" action="#">
+              <select>
+                <option>Date Added</option>
+                <option>No Availability</option>
+              </select>
+            </form>
+          </div>
+          <div class="list_map">
+            <span class="sort">List</span><img src="/assets/list.png" class="list" width="42" height="17" /> <span class="sort">Map</span>
+          </div>
+        -->
+          <div class="clear"></div>
+        </div>
+
+
+
+        <p style="color: #649D4A">
+          <strong>
+            <% if current_user %>
+                <td colspan="2">
+                  <%= pluralize(@perfectresults_count, "Perfect Match") %> found.
+                </td>
+            <% end %>
+          </strong>
+        </p>
+
+        <% if current_user %>
+            <% if @perfectresults_count > 0 %>
+                <p style="color: #649D4A">Perfect Matches found:</p>
+
+                <% @perfectresults.each do |listing| %>
+                    <div class="post">
+                      <div class="leftpost">
+                        <% if listing.photos.blank?%>
+                            <img border="0" src="/assets/no-photo-small.jpg?1388342718" alt="No Photo Available">
+                        <%else%>
+                            <%= image_tag listing.photos.first.image.url(:thumb), :class => "pos_img", :size => "114x91" %><!--<img class="pos_img" src="/assets/innersmallsliderimage2.png" width="114" height="91" />-->
+                        <%end%>
+                        <div class="middilepost">
+                          <div class="inline">
+                            <h2><%=h listing.year %> <%=h listing.make %></h2>
+                            <span class="mileage"></span> </div>
+                          <%if listing.video_uplink.present?%>
+                             <span><%=h link_to listing.video_uplink, listing.video_uplink, :target => "_blank" %></span>
+                          <%end%>
+                          <br />                            
+                          <%unless listing.category.blank? %>
+                              <span>Category - <%=h listing.category %></span>
+                          <%end%>
+                          <br />
+                          <%unless listing.subcategory.blank?%>
+                              <span>Sub Category - <%=h listing.subcategory %></span>
+                          <%end%>
+                          <br />
+                          <%unless listing.owner.nil?%>
+                              <% if listing.owner.city && listing.owner.state %>
+                                  <span><%=h listing.owner.city %>, <%=h listing.owner.state %></span> <img src="/assets/bubble.png" width="13" height="15" />
+                              <%end%>
+                          <%end%>
+                          <p class="description"></p>
+                          <a href="#">View Details &raquo;</a> </div>
+                      </div>
+                      <div class="swap"> <span><sup>$</sup><%=h listing.price %></span> </div>
+                      <div class="clear"></div>
+                    </div>
+                <%end%>
+            <%end%>
+        <%end%>
+
+
+        <p style="color: #649D4A">
+          <strong>
+            <% if current_user %>
+                <%= pluralize(@listings_count, "Unmatched listing") %> found.
+            <% else %>
+                <%= pluralize(@listings_count, "listing") %> found.
+            <% end %>
+          </strong>
+        </p>
+
+        <%# if current_user %>
+        <% if @listings_count > 0 %>
+            <% if current_user%><p><strong>The following vehicles match your search request, but are not a perfect match for what you own. Please message the owner to see if your vehicle may be of interest to him/her.</strong></p><%end%>
+            <% @listings.each do |listing| %>
+                <%#= listing.listingtype%>
+                <div class="post">
+                  <div class="leftpost">
+                    <% if listing.photos.blank?%>
+                        <img border="0" src="/assets/no-photo-small.jpg?1388342718" alt="No Photo Available">
+                    <%else%>
+                        <%= image_tag listing.photos.first.image.url(:thumb), :class => "pos_img", :size => "114x91" %><!--<img class="pos_img" src="/assets/innersmallsliderimage2.png" width="114" height="91" />-->
+                    <%end%>
+                    <div class="middilepost">
+                      <div class="inline">
+                        <h2><%=h listing.year %> <%=h listing.make %></h2>
+                        <span class="mileage"></span> </div>
+                          <%if listing.video_uplink.present?%>
+                             <span><%=h link_to listing.video_uplink, listing.video_uplink, :target => "_blank" %></span>
+                          <%end%>
+                          <br />                        
+                      <%unless listing.category.blank?%>
+                          <span>Category - <%=h listing.category %></span>
+                      <%end%>
+                      <br />
+                      <%unless listing.subcategory.blank?%>
+                          <span>Sub Category - <%=h listing.subcategory %></span>
+                      <%end%>
+                      <br />
+                      <%unless listing.owner.nil?%>
+                          <% if listing.owner.city && listing.owner.state %>
+                              <span><%=h listing.owner.city %>, <%=h listing.owner.state %></span> <img src="/assets/bubble.png" width="13" height="15" />
+                          <%end%>
+                      <%end%>
+                      <p class="description"></p>
+                      <%= link_to "View Details", listing_path(listing)%></div>
+                  </div>
+                  <div class="swap"> <span><sup>$</sup><%=h listing.price %></span> </div>
+                  <div class="clear"></div>
+                </div>
+            <%end%>
+        <%end%>
+        </div><p><%= will_paginate @listings%> </div></p>
+        <%#end%>
+
+        <!--<div class="paginationextra"> <span>Page 01 of 06</span> <img src="images/pagination.png" width="171" height="24" /> </div>-->
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<style>
+    a {
+        color: black;
+    }
+</style>
+
+
+<script>
+    $(document).ready(function() {
+        //$('input:radio[name=autos]').click();
+
+
+        $('#make').change(function() {
+            if ($(this).val() == '')
+            {
+                $('#model').html( $('<option>No model provided for your make</option>'));
+            }
+            else {
+                $.ajax({
+                    type: "GET",
+                    url: "/whatiwant/get_automodels?make=" + $(this).val(),
+                    success: function(data){
+                        if (data.content == 'None')  //handle the case where no state related to country selected
+                        {
+                            $('#model').empty();
+                            $('#model').append( $('<option>No model provided for your make</option>'));
+                        }
+                        else
+                        {
+                            $('#model').empty();
+                            $('#model').append( $('<option>Select your Model</option>'));
+                            jQuery.each(data,function(i, v) {
+                                $('#model').append( $('<option value="'+ data[i][1] +'">'+data[i][0] +'</option>'));
+                            });
+                        }
+                    }
+                });
+            }
+        });
+
+
+
+        $('#marine_category').change(function() {
+            if ($(this).val() == '')
+            {
+                $('#marine_subcategory').html( $('<option>No model provided for your make</option>'));
+            }
+            else {
+                $.ajax({
+                    type: "GET",
+                    url: "/whatiwant/get_marinesubcategories?category=" + $(this).val(),
+                    success: function(data){
+                        if (data.content == 'None')  //handle the case where no state related to country selected
+                        {
+                            $('#marine_subcategory').empty();
+                            $('#marine_subcategory').append( $('<option>No Subcategory provided for your Category</option>'));
+                        }
+                        else
+                        {
+                            $('#marine_subcategory').empty();
+                            $('#marine_subcategory').append( $('<option>Select your Subcategory</option>'));
+                            jQuery.each(data,function(i, v) {
+                                $('#marine_subcategory').append( $('<option value="'+ data[i][1] +'">'+data[i][0] +'</option>'));
+                            });
+                        }
+                    }
+                });
+            }
+        });
+
+
+
+        $('#power_category').change(function() {
+            if ($(this).val() == '')
+            {
+                $('#power_subcategory').html( $('<option>No model provided for your make</option>'));
+            }
+            else {
+                $.ajax({
+                    type: "GET",
+                    url: "/whatiwant/get_powersubcategories?category=" + $(this).val(),
+                    success: function(data){
+                        if (data.content == 'None')  //handle the case where no state related to country selected
+                        {
+                            $('#power_subcategory').empty();
+                            $('#power_subcategory').append( $('<option>No Subcategory provided for your Category</option>'));
+                        }
+                        else
+                        {
+                            $('#power_subcategory').empty();
+                            $('#power_subcategory').append( $('<option>Select your Subcategory</option>'));
+                            jQuery.each(data,function(i, v) {
+                                $('#power_subcategory').append( $('<option value="'+ data[i][1] +'">'+data[i][0] +'</option>'));
+                            });
+                        }
+                    }
+                });
+            }
+        });
+
+
+
+
+    });
+</script>

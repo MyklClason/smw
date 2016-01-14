@@ -1,0 +1,170 @@
+<div id="content">
+  <div class="page">
+    <div class="leftcontent">
+      <div class="uppercontent"> <h1 class="headingh1">Create a New <strong>Power Sports Listing</strong></h1>
+        <table width="100%" border="0" cellpadding="20" cellspacing="0">
+          <tr>
+            <td align="left" valign="top">
+              <table width="830" border="0" cellspacing="1" cellpadding="1">
+                <tr>
+                  <td colspan="2" rowspan="2">
+
+                    <%= form_for(@listing) do |f| %>
+                        <table width="81%" border="0" cellspacing="0" cellpadding="0">
+
+                          <% if @listing.errors.any? %>
+                              <div id="errorExplanation">
+                                <h2><%= pluralize(@listing.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+                                <ul>
+                                  <% @listing.errors.full_messages.each do |message| %>
+                                      <li><%= message %></li>
+                                  <% end %>
+                                </ul>
+                              </div>
+                          <% end %>
+
+                          <%= f.hidden_field :listingtype, :value => "power" %>
+                          <%= f.hidden_field :expired_at, :value => Date.today + 365 %>
+                          <tr>
+                            <td>
+                              <%= f.label "Listing Category:" %><br />
+                              <%= f.select(:listing_category_id, ListingCategory.all.map{|c| [c.name, c.id]}, {:prompt => "-Select Category-"}) %>
+                            </td>
+                          </tr>
+                          <tr id="uplink">  
+                            <td>
+                              <%= f.label "Video Uplink:" %><br />
+                              <%= f.text_field :video_uplink, :size => 15 %>
+                            </td>
+                          </tr>                          
+                          <tr>
+                            <td>
+                              <%= f.label "Year:" %><br />
+                              <%= f.text_field :year, :size => 15 %>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <%= f.label "Category:" %><br />
+                              <%= f.collection_select :category, @powercategories, :category, :category, {:prompt => "-Select a Category"}%>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <%= f.label "Subcategory:" %><br />
+                              <div id="powersubcategoriesdiv">
+                                <%= render :partial => "powersubcategories_select" %>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <%= f.label "Make:" %><br/>
+                              <%= f.collection_select :make, @powermakes, :make, :make, :prompt => "-Select a Make", :size => 15 %>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <%= f.label "VIN:" %><br />
+                              <%= f.text_field :vin, :size => 20 %>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <%= f.label "Price:" %><br />
+                              $<%= f.text_field :price, :size => 15, :onblur => "this.value=this.value.replace(/\,/g,'');" %> <i>* No commas please</i>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <%= f.label "Description:" %><br />
+                              <%= f.text_area :desc, :size => "30*15" %>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <br/>
+                              <%= f.submit 'Create Listing', :id => "Submit", :class => "sub" %>
+                            </td>
+                          </tr>
+                        </table>
+
+                    <% end %>
+
+                  </td>
+
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+        <div class="clear"></div>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    $( document ).ready(function() {
+
+        $('#listing_category').change(function() {
+            if ($(this).val() == '')
+            {
+                $('#listing_subcategory').html( $('<option>No model provided for your make</option>'));
+            }
+            else {
+                $.ajax({
+                    type: "GET",
+                    url: "/powercategories/get_powersubcategories?category=" + $(this).val(),
+                    success: function(data){
+                        if (data.content == 'None')  //handle the case where no state related to country selected
+                        {
+                            $('#listing_subcategory').empty();
+                            $('#listing_subcategory').append( $('<option>No Subcategory provided for your Category</option>'));
+                        }
+                        else
+                        {
+                            $('#listing_subcategory').empty();
+                            $('#listing_subcategory').append( $('<option>Select your Subcategory</option>'));
+                            jQuery.each(data,function(i, v) {
+                                $('#listing_subcategory').append( $('<option value="'+ data[i][1] +'">'+data[i][0] +'</option>'));
+                            });
+                        }
+                    }
+                });
+            }
+        });
+        $('#uplink').hide();
+        $( "#listing_listing_category_id" ).change(function() {
+            if ($(this).val() == '3')
+            {
+                $('#uplink').show();
+            }
+            else {
+                $('#uplink').hide();
+            }
+        });
+    });
+</script>

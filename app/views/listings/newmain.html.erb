@@ -1,0 +1,65 @@
+<style type="text/css">
+
+    .overlay {
+        background: no-repeat scroll center 105px transparent;
+        height: 199px;
+        position: absolute;
+        width: 351px;
+        z-ind/ex: 9999;
+        opacity:0;
+    }
+
+    .overlay h5 {
+        display: block;
+        font-family: Oswald;
+        font-size: 49px;
+        font-weight: bold;
+        line-height: 125px;
+        margin: 0;
+        text-align: center;
+    }
+    .overlay:hover
+    {
+        opacity:1;
+        background-color:rgba(0,0,0,.5)
+    }
+</style>
+
+<div id="content">
+  <div class="page">
+    <div class="leftcontent">
+      <div class="uppercontent"> <h1 class="headingh1">Create a <strong>Listing</strong></h1>
+        <p>Please select a category to crate listing</p>
+
+        <div class="lightbox">
+          <a href="<%= new_autolisting_url%>" rel="group" class="fancybox">
+            <div class="overlay">
+              <h5>AUTOMOTIVE</h5>
+            </div>
+            <img src="/assets/lightbox1.jpg" alt="" />
+          </a>
+          <a href="<%= new_marinelisting_url%>" rel="group" class="fancybox">
+            <div class="overlay">
+              <h5>MARINE</h5>
+            </div>
+            <img src="/assets/lightbox2.jpg" alt="" />
+          </a>
+          <a href="<%= new_motolisting_url%>" rel="group" class="fancybox">
+            <div class="overlay">
+              <h5>MOTORCYCLE</h5>
+            </div>
+            <img src="/assets/lightbox3.jpg" alt="" />
+          </a>
+          <a href="<%= new_powerlisting_url%>" rel="group" class="fancybox">
+            <div class="overlay">
+              <h5>POWER SPORTS</h5>
+            </div>
+            <img src="/assets/lightbox4.jpg" alt="" />
+          </a>
+        </div>
+        <div class="clear"></div>
+        </div>
+  </div>
+  <div class="clear"></div>
+</div>
+</div>

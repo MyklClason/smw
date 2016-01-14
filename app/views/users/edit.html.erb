@@ -1,0 +1,114 @@
+<script>
+
+    jQuery(document).ready(function() {
+        $(function() {
+
+            $('#iagree').click(function() {
+                if ($(this).is(':checked')) {
+                    $('#submitButton').removeAttr('disabled');
+
+                } else {
+                    $('#submitButton').attr('disabled', 'disabled');
+                }
+            });
+        });
+    });
+
+</script>
+
+
+<div class="clear"></div>
+<div id="content">
+  <div class="page">
+    <div class="rightcontent">
+      <div class="ad1"> <img src="/assets/ad1.jpg" width="300" height="125" /> </div>
+      <div class="ad2"> <img src="/assets/ad2.jpg" width="300" height="125" /> </div>
+      <div class="ad3"> <img src="/assets/ad3.jpg" width="300" height="250" /> </div>
+    </div>
+    <div class="leftcontent">
+      <div class="uppercontent"> <h1 class="headingh1">Edit <strong>User</strong></h1>
+        <div class="contactwidget">
+          <%= form_for(@user) do |f| %>
+              <% if @user.errors.any? %>
+                  <div id="errorExplanation">
+                    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+                    <ul>
+                      <% @user.errors.full_messages.each do |message| %>
+                          <li><%= message %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+              <% end %>
+              <div class="email">
+                <label>Email*</label>
+                <%= f.text_field :email, :size => 20 %>
+                <span class="infoText">
+			    <%#= link_to "Why do we need your email?", "../needemail.html", :popup => ['Swap My Whip - Vehicle Trading & Purchasing', 'height=400,width=400'] %>
+			  </span>
+              </div>
+              <div class="firstname">
+                <label>first name*</label>
+                <%= f.text_field :firstname, :size => 20 %>
+              </div>
+              <div class="lastname">
+                <label>last name*</label>
+                <%= f.text_field :lastname, :size => 20 %>
+              </div>
+              <div class="phoneno">
+                <label>phone</label>
+                <%= f.text_field :phone, :size => 20 %>
+              </div>
+              <div class="address">
+                <label>address*</label>
+                <%= f.text_field :address, :size => 20 %>
+              </div>
+              <div class="address">
+                <label>address 2</label>
+                <%= f.text_field :address2, :size => 20 %>
+              </div>
+              <div class="city">
+                <label>city*</label>
+                <%= f.text_field :city, :size => 20 %>
+              </div>
+              <div class="city">
+                <label>state*</label>
+                <%= f.select(:state, ['AK','AL','Alberta','AR','AZ','British Columbia','CA','CO','CT','DE','FL','GA','HI','IA',
+                                      'ID','IL','IN','KS','KY','LA','MA','Manitoba','MD','ME','MI','MN','MO','MS','MT','NC','ND',
+                                      'NE','New Brunswick','Newfoundland and Labrador','NH','NJ','NM','Nova Scotia','NV','NY','OH',
+                                      'OK','Ontario','OR','PA','Prince Edward Island','Quebec','RI','Saskatchewan','SC','SD','TN','TX',
+                                      'UT','VA','VT','WA','WI','WV','WY'], {:prompt => "-Select State/Province", :class=>"sl_width"}) %>
+              </div>
+              <div>
+                <label>zip code*</label>
+                <%= f.text_field :zip, :size => 20 %>
+              </div>
+
+              <div class="desiredusername">
+                <label>Username</label>
+                <%= f.text_field :username, :size => 20 %>
+              </div>
+              <div class="password">
+                <label>Password</label>
+                <%= f.password_field :password, :size => 20 %>
+                <p id="parsswordMargin">Enter 5-20 letters or numbers, case sensitive.</p>
+              </div>
+              <div class="confirmpassword">
+                <label>confirm password*</label>
+                <%= f.password_field :password_confirmation, :size => 20 %>
+              </div>
+              <div style="float-left;">
+                <label><%= f.submit 'Update', :id => "submitButton", :class => "sub" %></label>
+              </div>
+              </div>
+              <div class="clear"></div>
+
+          <%end%>
+          <div class="clear"></div>
+          </div>
+    </div>
+  </div>
+</div>
+
+<div class="clear"></div>
+</div>
