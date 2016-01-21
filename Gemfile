@@ -7,7 +7,6 @@ gem 'rails', '4.1.6'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
-gem 'mysql'
 
 gem "authlogic"
 #gem "searchlogic"
