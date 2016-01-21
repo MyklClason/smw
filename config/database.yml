@@ -37,6 +37,6 @@ production:
   reconnect: false
   database: smw_smw_production
   pool: 5
-  username: root
-  password:
+  username: railsapp_user
+  password: 
   socket: /var/run/mysqld/mysqld.sock
