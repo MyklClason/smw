@@ -1,65 +1,48 @@
-set :application, "SwapMyWhip"
-set :repository,  "git@smw.unfuddle.com:smw/smw.git"
-set :branch, "master"
-ssh_options[:port] = 2222
-ssh_options[:keys] = "/home/mthomas/.ssh/id_rsa"
-ssh_options[:paranoid] = false
-default_run_options[:pty] = true
+# config valid only for current version of Capistrano
+lock '3.4.0'
 
-set :scm, :git
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
-set :scm_username, "hest21"
-set :scm_passphrase, "Sw@pMyWh1p"
+set :application, 'my_app_name'
+set :repo_url, 'git@example.com:me/my_repo.git'
 
-set :deploy_via, :remote_cache
-set :deploy_to, "/var/www/swapmywhip"
+# Default branch is :master
+# ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
-role :web, "swapmywhip.com"                          # Your HTTP server, Apache/etc
-role :app, "swapmywhip.com"                          # This may be the same as your `Web` server
-role :db,  "swapmywhip.com", :primary => true # This is where Rails migrations will run
-#role :db,  "your slave db-server here"
+# Default deploy_to directory is /var/www/my_app_name
+# set :deploy_to, '/var/www/my_app_name'
 
-#Copy images to shared directory outside of code base
-desc "Creates symlinks from shared_path to upload directories for uploaded images"
-	task :symlink_upload_directories , :roles => :app do
-		[
-			'public/images/uploaded'
-		].each do |upload_path|
-			run "mkdir -p #{shared_path}/files/#{upload_path}"
-			run "rm -rf #{current_path}/#{upload_path} && ln -nfs #{shared_path}/files/#{upload_path} #{current_path}/#{upload_path}"
-		end
-	end
+# Default value for :scm is :git
+# set :scm, :git
 
-desc "Chown entire release directory to www-data"
-	task :chown_wwwdata , :roles => :app do
-		run sudo "chown -R www-data:www-data #{release_path}/*"
-	end
-	
-#This line calls the above task after the deploy:symlink default Cap task
-after "deploy:symlink", :symlink_upload_directories
-after "deploy:symlink", :chown_wwwdata
+# Default value for :format is :pretty
+# set :format, :pretty
 
-# If you are using Passenger mod_rails uncomment this:
-# if you're still using the script/reapear helper you will need
-# these http://github.com/rails/irs_process_scripts
+# Default value for :log_level is :debug
+# set :log_level, :debug
 
-namespace :mod_rails do
-  desc <<-DESC
-  Restart the application altering tmp/restart.txt for mod_rails.
-  DESC
-  task :restart, :roles => :app do
-    run "touch  #{release_path}/tmp/restart.txt"
-  end
-end
+# Default value for :pty is false
+# set :pty, true
+
+# Default value for :linked_files is []
+# set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
+
+# Default value for linked_dirs is []
+# set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
+
+# Default value for default_env is {}
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+
+# Default value for keep_releases is 5
+# set :keep_releases, 5
 
 namespace :deploy do
-  %w(start restart).each { |name| task name, :roles => :app do mod_rails.restart end }
-end
 
-#namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      # within release_path do
+      #   execute :rake, 'cache:clear'
+      # end
+    end
+  end
+
+end

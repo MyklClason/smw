@@ -40,7 +40,7 @@ gem 'activerecord-deprecated_finders'
 gem 'jquery-rails'
 gem 'ransack'
 
-gem 'pg'
+#gem 'pg'
 
 gem 'rails_12factor', group: :production
 
@@ -57,7 +57,11 @@ gem "paperclip", "~> 4.2"
 # gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+ gem 'capistrano'
+ gem 'capistrano-bundler'
+ gem 'capistrano-rails'
+
+ gem 'capistrano-rbenv', github: "capistrano/rbenv"
 
 # To use debugger
 # gem 'debugger'

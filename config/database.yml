@@ -12,10 +12,10 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: smw_smw_development
+  database: smw_development
   pool: 5
   username: root
-  password: root
+  password: Sw@pMyWh1p
   socket: /var/run/mysqld/mysqld.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -25,7 +25,7 @@ test:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: smw_smw_test
+  database: smw_test
   pool: 5
   username: root
   password:
@@ -35,8 +35,8 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: smw_smw_production
+  database: smw_production
   pool: 5
-  username: railsapp_user
-  password: 
+  username: root
+  password: Sw@pMyWh1p
   socket: /var/run/mysqld/mysqld.sock
