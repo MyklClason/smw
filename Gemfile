@@ -57,11 +57,14 @@ gem "paperclip", "~> 4.2"
 # gem 'unicorn'
 
 # Deploy with Capistrano
+group :development do
  gem 'capistrano'
  gem 'capistrano-bundler'
  gem 'capistrano-rails'
+ gem 'capistrano-passenger'
 
  gem 'capistrano-rbenv', github: "capistrano/rbenv"
+end
 
 # To use debugger
 # gem 'debugger'

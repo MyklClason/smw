@@ -10,7 +10,7 @@
 
 set :stage, :production
 
-server '23.253.254.248', user: 'www-data', roles: %w{web app db}
+server '23.253.254.248', user: 'mthomas', roles: %w{web app db}
 
 
 # role-based syntax
