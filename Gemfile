@@ -63,7 +63,7 @@ group :development do
  gem 'capistrano-rails'
  gem 'capistrano-passenger'
 
- gem 'capistrano-rbenv', github: "capistrano/rbenv"
+ gem 'capistrano-rbenv' #, github: "capistrano/rbenv"
 end
 
 # To use debugger
