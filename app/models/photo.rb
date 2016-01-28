@@ -4,7 +4,7 @@ class Photo < ActiveRecord::Base
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 =begin
 	acts_as_fleximage do
-		image_directory 'public/images/uploaded'
+		image_directory 'public/assets/uploaded'
 		image_storage_format :jpg
 		use_creation_date_based_directories true
 		
