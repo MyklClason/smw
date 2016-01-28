@@ -17,7 +17,9 @@ class User < ActiveRecord::Base
 	has_many :wishlists
 	has_many :favorites
 	#has_many :favorite_listings, :through => :favorites, :source => :listing
-	acts_as_authentic
+	acts_as_authentic do |c|
+		c.crypto_provider = Authlogic::CryptoProviders::Sha512
+	end
 	
 def deliver_password_reset_instructions!
 	reset_perishable_token!

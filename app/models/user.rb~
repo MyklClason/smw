@@ -1,8 +1,13 @@
 class User < ActiveRecord::Base
-	validates_presence_of :address, :city, :state, :zip, :referred_by
-	validates_length_of :zip, :minimum => 5
-	validates_length_of :zip, :maximum => 6
-	validates_numericality_of :zip, :only_integer => true
+
+  attr_accessible :email, :firstname, :lastname, :phone, :address, :address2, :city, :state, :zip, :username, :password,
+                  :password_confirmation, :referred_by
+
+	validates :firstname, :lastname, :phone, :address, :city, :state, :zip, :referred_by, :presence => true
+	validates :zip, :length => { :in => 5..6 }
+
+#can't make zip all numeric any more since Canadian Postal Codes are alphanumeric
+	#validates_numericality_of :zip, :only_integer => true
 	
 	has_many :listings, :dependent => :destroy
 	has_many :messages
