@@ -19,12 +19,12 @@ class UsersController < ApplicationController
   # POST /users.xml
   def create
     @user = User.new(params[:user])
-    @user.city.titleize
+    @user.city = params[:user][:city].titleize
 
     respond_to do |format|
       if @user.save
         flash[:notice] = 'Registration successful.'
-        format.html { redirect_to newmain_url }
+        format.html { redirect_to newmain_path }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
       else
         format.html { render :action => "new" }
