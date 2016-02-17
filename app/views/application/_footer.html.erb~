@@ -40,7 +40,7 @@
 <div class="clear"></div>
 <div id="downfooter">
   <div class="page">
-    <p class="leftp"> &copy; 2009-2016 Swapmywhip.com, Inc. All Rights Reserved. <br />
+    <p class="leftp"> &copy; 2009-2014 Swapmywhip.com, Inc. All Rights Reserved. <br />
       "Swapmywhip.com" is a registered trademark of Krause Capital, LLC used under exclusive license </p>
     <ul>
       <li><%= link_to("Privacy Policy", privacypolicy_url) %></li>
