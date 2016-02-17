@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-	AutoMailer.welcome_email(@user).deliver_now
+	AutoMailer.welcome_email(@user).deliver
         flash[:notice] = 'Registration successful.'
         format.html { redirect_to newmain_path }
         format.xml  { render :xml => @user, :status => :created, :location => @user }

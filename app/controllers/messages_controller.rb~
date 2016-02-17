@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-
+  layout 'application'
   def inbox
     @messages = current_user.received_messages.all
 
@@ -36,7 +36,7 @@ class MessagesController < ApplicationController
     respond_to do |format|
     	if not_authorized == true
     		flash[:notice] = 'You are not authorized to view that message.'
-    		format.html {redirect_to :back}
+    		format.html {redirect_to root_url}
     	else
 	      format.html # show.html.erb
   	    format.xml  { render :xml => @message }
@@ -57,7 +57,9 @@ class MessagesController < ApplicationController
   end
   
 	def reply
-    @original_message = Message.find(params[:message][:id])
+    puts "------------------------------"
+    puts params.inspect
+    @original_message = Message.find(params[:id])
     @message = Message.new
 		@sender = current_user
 		
@@ -74,6 +76,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
+	AutoMailer.contact_us_message(@message).deliver_now
         flash[:notice] = 'Message was successfully sent.'
         format.html { redirect_to :back }
         format.xml  { render :xml => @message, :status => :created, :location => @message }
@@ -87,10 +90,14 @@ class MessagesController < ApplicationController
   end
 
 	def create_reply
+    @reply_to_message = Message.find(params[:id])
     @message = Message.new(params[:message])
 
+    @message.body = @reply_to_message.body
+    @message.recipient_id = @reply_to_message.recipient_id
+
     respond_to do |format|
-      if @message.save
+      if @message.save!
         flash[:notice] = 'Reply Message was successfully sent.'
         format.html { redirect_to sent_url }
         format.xml  { render :xml => @message, :status => :created, :location => @message }

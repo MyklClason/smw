@@ -61,7 +61,7 @@ SmwSmw::Application.configure do
 		:authentication => :plain,
 		:domain => 'swapmywhip.com',
 		:user_name => 'info@swapmywhip.com',
-		:password => 'SMWadmin'
+		:password => 'IDFSMW$$'
   }
 
   # Enable threaded mode
