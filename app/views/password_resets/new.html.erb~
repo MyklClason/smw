@@ -1,0 +1,18 @@
+<div id="content">
+  <div class="page">
+    <div class="leftcontent">
+      <div class="uppercontent"> <span><strong>Forgot Password</strong></span>
+	Please enter your email address and instructions to reset your password will be emailed to you.<br />
+	<br />
+		<%= form_tag password_resets_path do %>
+		<label>Email:</label><br />
+		<%= text_field_tag "email" %><br />
+		<br />
+		<%= submit_tag "Reset my password" %>
+	<% end %>
+        <div class="clear"></div>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
