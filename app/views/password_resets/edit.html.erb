@@ -1,19 +1,23 @@
-<table width="100%" border="0" cellpadding="20" cellspacing="0">
-	<tr>
-		<td align="left" valign="top">
-			<h3>Change my password<br /></h3>
-			
-			<%= form_for @user, :url => password_reset_path, :method => :put do |f| %>
-				<%= f.error_messages %>
-				<%= f.label :password %><br />
-				<%= f.password_field :password %><br />
-				<br />
-				<%= f.label :password_confirmation %><br />
-				<%= f.password_field :password_confirmation %><br />
-				<br />
-				<%= f.submit "Update password and log me in" %>
-			<% end %>
-
-		</td>
-	</tr>
-</table>
+<div id="content">
+  <div class="page">
+    <div class="leftcontent">
+	<% flash.each do |name, msg| %>
+	        <%= content_tag :div, msg, class: "notice" %>
+	<% end %>
+      <div class="uppercontent">
+        <h1 class="headingh1"><strong>Change Password</strong></h1>
+	<%= form_for @user, :url => password_reset_path, :method => :put do |f| %>
+		<%= f.label :password %><br />
+		<%= f.password_field :password %><br />
+		<br />
+		<%= f.label :password_confirmation %><br />
+		<%= f.password_field :password_confirmation %><br />
+		<br />
+		<%= f.submit "Update password and log me in" %>
+	<% end %>
+	<div class="clear"></div>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>

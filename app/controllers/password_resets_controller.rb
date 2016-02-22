@@ -29,8 +29,9 @@ def update
 	@user.password_confirmation = params[:user][:password_confirmation]
 	if @user.save
 		flash[:notice] = "Password successfully updated"
-		redirect_to root_url
+		redirect_to @user #root_url
 	else
+		flash[:notice] = "Password not updated"
 		render :action => :edit
 	end
 end

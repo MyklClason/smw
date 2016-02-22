@@ -1,7 +1,8 @@
 <div id="content">
   <div class="page">
     <div class="leftcontent">
-      <div class="uppercontent"> <span><strong>Forgot Password</strong></span>
+      <div class="uppercontent">
+        <h1 class="headingh1"><strong>Pricing</strong></h1>		
 	Please enter your email address and instructions to reset your password will be emailed to you.<br />
 	<br />
 		<%= form_tag password_resets_path do %>
