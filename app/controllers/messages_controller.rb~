@@ -76,7 +76,11 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
-	AutoMailer.contact_us_message(@message).deliver
+	if @message.recipient.id == 1
+		AutoMailer.contact_us_message(@message).deliver
+	else
+		AutoMailer.new_message(@message).deliver
+	end
         flash[:notice] = 'Message was successfully sent.'
         format.html { redirect_to :back }
         format.xml  { render :xml => @message, :status => :created, :location => @message }
