@@ -76,7 +76,11 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
-	AutoMailer.contact_us_message(@message).deliver
+	if @message.recipient.id == 1
+		AutoMailer.contact_us_message(@message).deliver
+	else
+		AutoMailer.new_message(@message).deliver
+	end
         flash[:notice] = 'Message was successfully sent.'
         format.html { redirect_to :back }
         format.xml  { render :xml => @message, :status => :created, :location => @message }
@@ -90,14 +94,15 @@ class MessagesController < ApplicationController
   end
 
 	def create_reply
-    @reply_to_message = Message.find(params[:id])
+   # @reply_to_message = Message.find(params[:id])
     @message = Message.new(params[:message])
 
-    @message.body = @reply_to_message.body
-    @message.recipient_id = @reply_to_message.recipient_id
+   # @message.body = @reply_to_message.body
+   # @message.recipient_id = @reply_to_message.recipient_id
 
     respond_to do |format|
       if @message.save!
+	AutoMailer.new_message(@message).deliver
         flash[:notice] = 'Reply Message was successfully sent.'
         format.html { redirect_to sent_url }
         format.xml  { render :xml => @message, :status => :created, :location => @message }
