@@ -94,11 +94,11 @@ class MessagesController < ApplicationController
   end
 
 	def create_reply
-    @reply_to_message = Message.find(params[:id])
+   # @reply_to_message = Message.find(params[:id])
     @message = Message.new(params[:message])
 
-    @message.body = @reply_to_message.body
-    @message.recipient_id = @reply_to_message.recipient_id
+   # @message.body = @reply_to_message.body
+   # @message.recipient_id = @reply_to_message.recipient_id
 
     respond_to do |format|
       if @message.save!
