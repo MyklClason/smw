@@ -1,239 +1,301 @@
-<table width="100%" border="0" cellspacing="2" cellpadding="0">
-	<tr>
-		<td valign="top">
-			 <%= render :partial => "basicsearchmotos" %>
-		</td>
-	</tr>
-	<tr>
-		<td rowspan="3" align="left" valign="top">
-			<table border="0" cellpadding="2" cellspacing="0">
-				<tr>
-					<td align="right" valign="top">
-						<%= link_to image_tag("SCP-Banner-Static.jpg", :border => 0), "http://www.southerncarparts.com", :popup => true %>
-					</td>
-					<td width="25%" align="right" valign="top" style="color: # color: #2e61c9">
-						<p>
-							<span>Listings per page</span>
-							<%= per_page_select %>
-							<% if @search.page_count > 1 %>
-								<div>
-									<%= page_links %>
-								</div>
-							<% end %>
-						</p>
-					</td>
-				</tr>
-				<tr>
-					<% if current_user %>
-						<td colspan="2">
-							<%= pluralize(@perfectresults_count, "Perfect Match") %> found.
-						</td>
-					<% end %>
-				</tr>
-				
-				<% if current_user %>	
-					<% if @perfectresults_count > 0 %>
-				
-						<tr>
-							<td colspan="2">
-								<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#823416" style="background-color: #e2ceb3;">
-									<tr>
-										<th height="25" align="center" bgcolor="#823416"></th>
-										<th height="25" align="center" bgcolor="#823416"><%= order_by_link :year %></th>
-										<th height="25" align="center" bgcolor="#823416"><%= order_by_link :category %></th>
-										<th height="25" align="center" bgcolor="#823416"><%= order_by_link :make %></th>
-										<th height="25" align="center" bgcolor="#823416"><%= order_by_link :mileage %></th>
-										<th height="25" align="center" bgcolor="#823416"><%= order_by_link :price %></th>
-										<th height="25" align="center" bgcolor="#823416" class="order_by">Location</th>
-										<th height="25" align="center" bgcolor="#823416" class="order_by">Trade For</th>
-									</tr>
+<div id="content">
+  <div class="page">
+    <div class="rightcontent">
+      <div class="contact"> <span>Find Your</span><span class="whip"> Whip</span>
+        <div class="checkbox">
+          <form action="#">
+            <div id="moto">
+              <%= form_tag(motolistingsresults_motolistings_path(:listing_type => 'moto')) do |f| %>
+                  <div class="question">
+                    <label class="question">01. Category</label>
+                    <div class="select selectParent">
+                      <%#= select_tag("category", options_from_collection_for_select(@motocategories,"id", "category",:selected => params[:category]),
+                                     :prompt => "-Select a Category")%>
+                      <%= select_tag(:category, options_for_select(@motocategories.map {|s| [s.category, s.category]},:selected => params[:category]),
+                                     :prompt => "-Select a Category")%>
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="question">
+                    <label class="question">02. Make</label>
+                    <div class="select">
+                      <%= select_tag :make, options_for_select(@motomakes.map {|s| [s.make, s.make]},:selected => params[:make]),
+                                     {prompt: "Select a Make"} %>
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+                  <!--
+                <div class="question">
+                  <label class="question">03. Max Price</label>
+                  <div class="select selectParent">
+                    <%#= text_field_tag :price_lt, '', :size => 6, :value => params[:price_lt] %>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+                -->
+                  <div class="question">
+                    <label class="question">03. State</label>
+                    <div class="select">
+                      <%= select_tag("state",options_from_collection_for_select(Listing::STATES, 'to_s' , 'to_s',:selected => params[:state]) , {:prompt => "-Select State"}) %>
+                      <%#= select_tag(:state,options_for_select(Listing::STATES,:selected => params[:state]) , {:prompt => "-Select State"}) %>
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+                  <%= hidden_field_tag :listing_type, "moto" %>
+                  <%= hidden_field_tag :expired_at_gte, Date.today %>
+                  <%= link_to "Advanced Search", searchmotos_path, :class=>"advance"%>
+                  <%= submit_tag "Basic Search", class: "submit" %>
+              <% end %>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="ad1"> <img src="/assets/ad1.jpg" width="300" height="125" /> </div>
+      <div class="ad2"> <img src="/assets/ad2.jpg" width="300" height="125" /> </div>
+      <div class="ad3"> <img src="/assets/ad3.jpg" width="300" height="250" /> </div>
+    </div>
+    <div class="leftcontent">
+      <div class="lsitarea"> <img class="p_img" src="/assets/listingpageimage.png" width="725" height="276" />
+        <div class="pagination">
+          <!--
+          <div class="paging">
+            <span class="font">Page 01 of 06</span> <img width="171" height="24" src="/assets/pagination.png">
+          </div>
 
-									<h3>Perfect Matches found:</h3>
-									<% @perfectresults.each do |listing| %>
-									<tr>
-										<td align="center" valign="middle">
-											<% listing.photos.all(:limit => 1).each do |photo| %>
-												<%= link_to image_tag(smallphoto_url(photo, :jpg), :alt => photo.name, :border => 0), listing %><br/>
-											<% end %>
-											<% if listing.photos.all.count == 0 %>
-												<%= link_to image_tag("no-photo-small.jpg", :alt => "No Photo Available", :border => 0), listing %><br/>
-											<% end %>
-											<%=h pluralize(listing.photos.all.count, "photo") %>
-									
-											<% if listing.photos.all.count > 1 %>
-												<br/>
-												<%= link_to image_tag("more_photos.png", :alt => "more photos", :size => "74x10", :border => "0"), listing %>
-											<% end %>
-										</td>
-										<td align="center" valign="middle">
-											<%=h listing.year %>
-										</td>
-										<td align="center" valign="middle">
-											<%=h listing.category %>
-										</td>
-										<td align="center" valign="middle">
-											<%=h listing.make %>
-										</td>
-										<td align="center" valign="middle">
-											<%=h listing.mileage %>
-										</td>
-										<td align="center" valign="middle">
-											<%=h number_to_currency(listing.price, :precision => 0) %>
-										</td>
-										<td align="center" valign="middle">
-											<% if listing.owner.city && listing.owner.state %>
-												<%=h listing.owner.city %>, <%=h listing.owner.state %>
-											<% end %>
-										</td>
-										<td align="center" valign="middle">
-											<!--<%=h listing.owner.username %>-->
-											<% listing.owner.wishlists.find(:all).each do |wishlist| %>
-												*<%= wishlist.min_year %>-<%= wishlist.max_year %> <%= wishlist.body %> <%= wishlist.category %> <%= wishlist.subcategory %> <%= wishlist.make %> <%= wishlist.model %> <%=  number_to_currency(wishlist.min_price, :precision => 0) %>-<%=  number_to_currency(wishlist.max_price, :precision => 0) %><br />
-											<% end %>	
-										</td>
-									</tr>
-							
-									<% end %>
-							
-								</table><br />
-								<p>&nbsp;</p>
-							</td>
-						</tr>
-					<% end %>
-				<% end %>
-				
-				<tr>
-					<td colspan="2">
-						<% if current_user %>
-							<%= pluralize(@listings_count, "Unmatched listing") %> found.
-						<% else %>
-							<%= pluralize(@listings_count, "listing") %> found.
-						<% end %>
-					</td>
-				</tr>
-				
-				<% if @listings_count > 0 %>
-				
-				<tr>
-					<td colspan="2">
-						<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#823416" style="background-color: #e2ceb3;">
-							<tr>
-								<th height="25" align="center" bgcolor="#823416"></th>
-								<th height="25" align="center" bgcolor="#823416"><%= order_by_link :year %></th>
-								<th height="25" align="center" bgcolor="#823416"><%= order_by_link :category %></th>
-								<th height="25" align="center" bgcolor="#823416"><%= order_by_link :make %></th>
-								<th height="25" align="center" bgcolor="#823416"><%= order_by_link :mileage %></th>
-								<th height="25" align="center" bgcolor="#823416"><%= order_by_link :price %></th>
-								<th height="25" align="center" bgcolor="#823416" class="order_by">Location</th>
-								<th height="25" align="center" bgcolor="#823416" class="order_by">Trade For</th>
-							</tr>
-							
-							<% if current_user %>
-								<h3>The following vehicles match your search request, but are not a perfect match for what you own. Please message the owner to see if your vehicle may be of interest to him/her.</h3>
-							<% end %>
-							<% @listings.each do |listing| %>
-							<tr>
-								<td align="center" valign="middle">
-									<% listing.photos.all(:limit => 1).each do |photo| %>
-										<%= link_to image_tag(smallphoto_url(photo, :jpg), :alt => photo.name, :border => 0), listing %><br/>
-									<% end %>
-									<% if listing.photos.all.count == 0 %>
-										<%= link_to image_tag("no-photo-small.jpg", :alt => "No Photo Available", :border => 0), listing %><br/>
-									<% end %>
-									<%=h pluralize(listing.photos.all.count, "photo") %>
-									
-									<% if listing.photos.all.count > 1 %>
-										<br/>
-										<%= link_to image_tag("more_photos.png", :alt => "more photos", :size => "74x10", :border => "0"), listing %>
-									<% end %>
-								</td>
-								<td align="center" valign="middle">
-									<%=h listing.year %>
-								</td>
-								<td align="center" valign="middle">
-									<%=h listing.category %>
-								</td>
-								<td align="center" valign="middle">
-									<%=h listing.make %>
-								</td>
-								<td align="center" valign="middle">
-									<%=h listing.mileage %>
-								</td>
-								<td align="center" valign="middle">
-									<%=h number_to_currency(listing.price, :precision => 0) %>
-								</td>
-								<td align="center" valign="middle">
-									<% if listing.owner.city && listing.owner.state %>
-										<%=h listing.owner.city %>, <%=h listing.owner.state %>
-									<% end %>
-								</td>
-								<td align="center" valign="middle">
-									<!--<%=h listing.owner.username %>-->
-									<% listing.owner.wishlists.find(:all).each do |wishlist| %>
-										*<%= wishlist.min_year %>-<%= wishlist.max_year %> <%= wishlist.body %> <%= wishlist.category %> <%= wishlist.subcategory %> <%= wishlist.make %> <%= wishlist.model %> <%=  number_to_currency(wishlist.min_price, :precision => 0) %>-<%=  number_to_currency(wishlist.max_price, :precision => 0) %><br />
-									<% end %>	
-								</td>
-							</tr>
-							
-							<% end %>
-							
-						</table>
 
-					</td>
-				</tr>
-				<tr>
-					<td width="50%" align="right" valign="top" style="color: # color: #2e61c9">
-						<p>
-							<% if @search.page_count > 1 %>
-								<div style="color: #2e61c9">
-									<%= page_links %>
-								</div>
-							<% end %>
-						</p>
-					</td>
-					<td align="right">
-						<a href="#">Back to Top of Page</a>
-					</td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-				</tr>
-				<% end %>
-			</table>
-			<table width="100%">
-				<tr>
-					<td width="33%" align="center">
-						<% form_for @search, :url => {:controller => :autolistings, :action => "autolistingsresults"} do |f| %>
-							<%= f.hidden_field :order_by, :value => "created_at" %>
-							<%= f.hidden_field :order_as, :value => "DESC" %>
-							<% f.fields_for @search.conditions do |listings| %>
-								<%= listings.hidden_field :listingtype_is, :value => "auto" %>
-								<%= f.submit "Browse Automobiles", :class => "browseLinkFormSubmit" %>
-							<% end %>
-						<% end %>
-					</td>
-					<td width="33%" align="center">
-						<% form_for @search, :url => {:controller => :marinelistings, :action => "marinelistingsresults"} do |f| %>
-							<%= f.hidden_field :order_by, :value => "created_at" %>
-							<%= f.hidden_field :order_as, :value => "DESC" %>
-							<% f.fields_for @search.conditions do |listings| %>
-								<%= listings.hidden_field :listingtype_is, :value => "marine" %>
-								<%= f.submit "Browse Marine", :class => "browseLinkFormSubmit" %>
-							<% end %>
-						<% end %>
-					</td>
-					<td width="33%" align="center">
-						<% form_for @search, :url => {:controller => :powerlistings, :action => "powerlistingsresults"} do |f| %>
-							<%= f.hidden_field :order_by, :value => "created_at" %>
-							<%= f.hidden_field :order_as, :value => "DESC" %>
-							<% f.fields_for @search.conditions do |listings| %>
-								<%= listings.hidden_field :listingtype_is, :value => "power" %>
-								<%= f.submit "Browse Powersports", :class => "browseLinkFormSubmit" %>
-							<% end %>
-						<% end %>
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-</table>
+          <div class="short_by">
+            <span class="sort font">Sort by:</span>
+            <form class="float_left" action="#">
+              <select>
+                <option>Date Added</option>
+                <option>No Availability</option>
+              </select>
+            </form>
+          </div>
+
+          <div class="list_map">
+            <span class="sort">List</span><img src="/assets/list.png" class="list" width="42" height="17" /> <span class="sort">Map</span>
+          </div>
+           -->
+          <div class="clear"></div>
+        </div>
+
+
+        <p style="color: #649D4A">
+          <strong>
+            <% if current_user %>
+                <td colspan="2">
+                  <%= pluralize(@perfectresults_count, "Perfect Match") %> found.
+                </td>
+            <% end %>
+          </strong>
+        </p>
+
+
+        <% if current_user %>
+            <% if @perfectresults_count > 0 %>
+                <p style="color: #649D4A">Perfect Matches found:</p>
+                <% @perfectresults.each do |listing| %>
+                    <div class="post">
+                      <div class="leftpost">
+                        <% if listing.photos.blank?%>
+                            <img border="0" src="/assets/no-photo-small.jpg?1388342718" alt="No Photo Available">
+                        <%else%>
+                            <%= image_tag listing.photos.first.image.url(:thumb), :class => "pos_img", :size => "114x91" %><!--<img class="pos_img" src="/assets/innersmallsliderimage2.png" width="114" height="91" />-->
+                        <%end%>
+                        <div class="middilepost">
+                          <div class="inline">
+                            <h2><%=h listing.year %> <%=h listing.make %></h2>
+
+                            <span class="mileage">Mileage : <%=h listing.mileage %></span> </div>
+                          <%unless listing.body.blank?%>
+                              <span>ss - <%=h listing.body %></span>
+                          <%end%>
+                          <%if listing.video_uplink.present?%>
+                             <span><%=h link_to listing.video_uplink, listing.video_uplink, :target => "_blank" %></span>
+                          <%end%>
+                          <br />  
+                          <%unless listing.category.blank?%>
+                              <span>Category - <%=h listing.category %></span>
+                          <%end%>
+                          <br />
+                          <%unless listing.owner.nil?%>
+                              <% if listing.owner.city && listing.owner.state %>
+                                  <span><%=h listing.owner.city %>, <%=h listing.owner.state %></span> <img src="/assets/bubble.png" width="13" height="15" />
+                              <%end%>
+                          <%end%>
+                          <p class="description"></p>
+                          <a href="#">View Details &raquo;</a> </div>
+                      </div>
+                      <div class="swap"> <span><sup>$</sup><%=h listing.price %></span> </div>
+                      <div class="clear"></div>
+                    </div>
+                <%end%>
+            <%end%>
+        <%end%>
+
+        <p style="color: #649D4A">
+          <strong>
+            <% if current_user %>
+                <%= pluralize(@listings_count, "Unmatched listing") %> found.
+            <% else %>
+                <%= pluralize(@listings_count, "listing") %> found.
+            <% end %>
+          </strong>
+        </p>
+
+        <% if @listings_count > 0 %>
+            <% if current_user%><p><strong>The following vehicles match your search request, but are not a perfect match for what you own. Please message the owner to see if your vehicle may be of interest to him/her.</strong></p><%end%>
+            <% @listings.each do |listing| %>
+                <%#= listing.listingtype%>
+                <div class="post">
+                  <div class="leftpost">
+                    <% if listing.photos.blank?%>
+                        <img border="0" src="/assets/no-photo-small.jpg?1388342718" alt="No Photo Available">
+                    <%else%>
+                        <%= image_tag listing.photos.first.image.url(:thumb), :class => "pos_img", :size => "114x91" %><!--<img class="pos_img" src="/assets/innersmallsliderimage2.png" width="114" height="91" />-->
+                    <%end%>
+
+                    <div class="middilepost">
+                      <div class="inline">
+                        <h2><%=h listing.year %> <%=h listing.make %></h2>
+                        <span class="mileage">Milage : <%=h listing.mileage %></span> </div>
+                          <%unless listing.body.blank?%>
+                              <span>ss - <%=h listing.body %></span>
+                          <%end%>
+                          <%if listing.video_uplink.present?%>
+                             <span><%=h link_to listing.video_uplink, listing.video_uplink, :target => "_blank" %></span>
+                          <%end%>
+                          <br />  
+                      <%unless listing.category.blank?%>
+                          <span>Category - <%=h listing.category %></span>
+                      <%end%>
+                      <br />
+                      <%unless listing.owner.nil?%>
+                          <% if listing.owner.city && listing.owner.state %>
+                              <span><%=h listing.owner.city %>, <%=h listing.owner.state %></span> <img src="/assets/bubble.png" width="13" height="15" />
+                          <%end%>
+                      <%end%>
+
+                      <p class="description"></p>
+                      <%= link_to "View Details", listing_path(listing)%></div>
+                  </div>
+                  <div class="swap"> <span><sup>$</sup><%=h listing.price %></span> </div>
+                  <div class="clear"></div>
+                </div>
+            <%end%>
+        <%end%>
+        </div><p><%= will_paginate @listings%> </div></p>
+        <!--<div class="paginationextra"> <span>Page 01 of 06</span> <img src="images/pagination.png" width="171" height="24" /> </div>-->
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<style>
+    a {
+        color: black;
+    }
+</style>
+
+
+<script>
+    $(document).ready(function() {
+        //$('input:radio[name=autos]').click();
+
+
+        $('#make').change(function() {
+            if ($(this).val() == '')
+            {
+                $('#model').html( $('<option>No model provided for your make</option>'));
+            }
+            else {
+                $.ajax({
+                    type: "GET",
+                    url: "/whatiwant/get_automodels?make=" + $(this).val(),
+                    success: function(data){
+                        if (data.content == 'None')  //handle the case where no state related to country selected
+                        {
+                            $('#model').empty();
+                            $('#model').append( $('<option>No model provided for your make</option>'));
+                        }
+                        else
+                        {
+                            $('#model').empty();
+                            $('#model').append( $('<option>Select your Model</option>'));
+                            jQuery.each(data,function(i, v) {
+                                $('#model').append( $('<option value="'+ data[i][1] +'">'+data[i][0] +'</option>'));
+                            });
+                        }
+                    }
+                });
+            }
+        });
+
+
+
+        $('#marine_category').change(function() {
+            if ($(this).val() == '')
+            {
+                $('#marine_subcategory').html( $('<option>No model provided for your make</option>'));
+            }
+            else {
+                $.ajax({
+                    type: "GET",
+                    url: "/whatiwant/get_marinesubcategories?category=" + $(this).val(),
+                    success: function(data){
+                        if (data.content == 'None')  //handle the case where no state related to country selected
+                        {
+                            $('#marine_subcategory').empty();
+                            $('#marine_subcategory').append( $('<option>No Subcategory provided for your Category</option>'));
+                        }
+                        else
+                        {
+                            $('#marine_subcategory').empty();
+                            $('#marine_subcategory').append( $('<option>Select your Subcategory</option>'));
+                            jQuery.each(data,function(i, v) {
+                                $('#marine_subcategory').append( $('<option value="'+ data[i][1] +'">'+data[i][0] +'</option>'));
+                            });
+                        }
+                    }
+                });
+            }
+        });
+
+
+
+        $('#power_category').change(function() {
+            if ($(this).val() == '')
+            {
+                $('#power_subcategory').html( $('<option>No model provided for your make</option>'));
+            }
+            else {
+                $.ajax({
+                    type: "GET",
+                    url: "/whatiwant/get_powersubcategories?category=" + $(this).val(),
+                    success: function(data){
+                        if (data.content == 'None')  //handle the case where no state related to country selected
+                        {
+                            $('#power_subcategory').empty();
+                            $('#power_subcategory').append( $('<option>No Subcategory provided for your Category</option>'));
+                        }
+                        else
+                        {
+                            $('#power_subcategory').empty();
+                            $('#power_subcategory').append( $('<option>Select your Subcategory</option>'));
+                            jQuery.each(data,function(i, v) {
+                                $('#power_subcategory').append( $('<option value="'+ data[i][1] +'">'+data[i][0] +'</option>'));
+                            });
+                        }
+                    }
+                });
+            }
+        });
+
+
+
+
+    });
+</script>
