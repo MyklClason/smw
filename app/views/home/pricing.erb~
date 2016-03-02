@@ -18,7 +18,7 @@
         <!--<img alt="" src="/assets/lightbox3.jpg">-->
 	</li>        
 	<p>
-	<%= link_to "Register", new_user_path, {:style=>'color:#649D4A'} %> for an account, or Log in to <%= link_to "create a new listing", new_listing_path, {:style =>'color:#649D4A'} %> today!
+	<%= link_to "Register", new_user_path, {:style=>'color:#649D4A'} %> for an account, or Log in to <%= link_to "create a new listing", newmain_path, {:style =>'color:#649D4A'} %> today!
 	</p>
 	<div class="clear"></div>
       </div>
