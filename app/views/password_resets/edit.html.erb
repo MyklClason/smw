@@ -6,6 +6,7 @@
 	<% end %>
       <div class="uppercontent">
         <h1 class="headingh1"><strong>Change Password</strong></h1>
+<%= debug @user %>
 	<%= form_for @user, :url => password_reset_path, :method => :put do |f| %>
 		<%= f.label :password %><br />
 		<%= f.password_field :password %><br />

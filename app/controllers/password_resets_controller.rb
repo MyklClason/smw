@@ -27,13 +27,22 @@ end
 def update
 	@user.password = params[:user][:password]
 	@user.password_confirmation = params[:user][:password_confirmation]
-	if @user.save
-		flash[:notice] = "Password successfully updated"
-		redirect_to @user #root_url
-	else
-		flash[:notice] = "Password not updated"
-		render :action => :edit
-	end
+	
+	respond_to do |format|
+		if @user.save
+		    format.html { redirect_to root_url, notice: 'Password successfully changed' }
+		else
+		    format.html { redirect_to edit_password_resets_path, notice: 'Password not updated' }
+		end
+	    end
+
+#	if @user.save
+#		flash[:notice] = "Password successfully updated"
+#		redirect_to @user #root_url
+#	else
+#		flash[:notice] = "Password not updated"
+#		render :action => :edit
+#	end
 end
 
 private

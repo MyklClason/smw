@@ -6,7 +6,7 @@
         <p>We created a website where YOU can get a better deal. <span class="smwText">SwapMyWhip.com</span> lets you swap your vehicle with other private owners (or just purchase outright). Whether you're upsizing, downsizing, found a new hobby, or just enjoy something new every year, this site has something for you.</p>
         <p>Swap as often as you'd like, because you'll get value when you swap!
           Whatever your situation, you'll find that swapping for your next vehicle is the way to go!</p>
-        <p>SwapMyWhip.com is free to use, so <%= link_to "register today!", new_user_path, {:style=>'color:#649D4A'} %></p>
+        <p>SwapMyWhip.com is free to use, so register today!</p>
         <div class="clear"></div>
       </div>
       <div class="java"> <span style="color: #649D4A;font-family: 'Oswald',sans-serif;font-size: 28px;text-transform: uppercase;">Find A</span><span class="boldclass" style="color: #649D4A;font-family: 'Oswald',sans-serif;font-size: 28px;text-transform: uppercase;"> Whip</span>
