@@ -734,9 +734,17 @@ html, body {
   overflow-x:hidden !important;
 } 
 
+.benefits {
+  margin-left: 25px;
+  font-size: 13px;
+}
 
 
 
-
-
- 
+.trade-listings {
+  margin-left: 25px;
+  font-size: 13px;
+}
+.trade-listings li {
+  color:#649D4A;
+}

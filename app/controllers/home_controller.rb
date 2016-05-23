@@ -71,4 +71,18 @@ class HomeController < ApplicationController
   def pricing
   end
 
+  def trade_listings
+  end
+
+  def cars_for_trade
+  end
+
+  def motorcycle_swap
+  end
+
+  def boats_for_trade
+  end
+
+  def powersports_for_trade
+  end
 end

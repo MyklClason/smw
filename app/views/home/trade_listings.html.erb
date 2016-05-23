@@ -1,0 +1,28 @@
+<% content_for :head do %>
+  <meta name="title" content="Our Vehicle Trade Listings | Swap My Whip">
+  <meta name="description" content="From cars, boats, motorcycles &amp; more, Swap My Whip will let you swap cars with someone and retain your vehicle's value. Check out our listings today!">
+<% end %>
+<div id="content">
+  <div class="page">
+    <h1>Our Trade Listings</h1>
+      <p>We’re the number one car trader online. From cars, trucks, motorcycles and more, Swap My Whip is exclusively dedicated to motorized trading. And unlike dealerships, car salesmen, and other online middlemen, we don’t take a cut of the trade or operate on commision.
+      </p>
+      <p>Interested in making a trade? We have a huge variety of vehicles but mainly operate under the following four categories:
+      </p>
+      <ul class="trade-listings">
+        <li><%= link_to "Cars", cars_for_trade_path, {:style=>'color:#649D4A'} %></li>
+        <li><%= link_to "Motorcycles", motorcycle_swap_path, {:style=>'color:#649D4A'} %></li>
+        <li><%= link_to "Boats", boats_for_trade_path, {:style=>'color:#649D4A'} %></li>
+        <li><%= link_to "Power Sports", powersports_for_trade_path, {:style=>'color:#649D4A'} %></li>
+      </ul>
+      <p>All of our existing listings are made by private owners looking to make a deal — hopefully with you!</p>
+    <h2>Swap Cars With Someone Today!</h2>
+      <p>There are many reasons for wanting a different car. Whether you’ve gone through a lifestyle change, need to downsize, want to upgrade, or are just looking for something new, we can help you find the right vehicle for you.
+      </p>
+      <p>And yes, you can trade across categories. Want to trade your motorcycle for a car? That’s okay. Want to trade your car for a boat? That works too! With Swap My Whip, if you and another private owner want to make it happen, then go for it!
+      </p>
+      <p>Browse through our available listings today. If you see something you like, become a Swap My Whip member to start messaging users about a trade. Just know — registration is free, and registered members have access to added <%= link_to "site perks", user_resources_path, {:style=>'color:#649D4A'} %> like Wishlists, Favorites, and more
+      </p>
+      <p>What are you waiting for? <%= link_to "Let’s get trading!", new_user_path, {:style=>'color:#649D4A'} %></p>
+  </div>
+</div>
