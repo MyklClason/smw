@@ -149,8 +149,14 @@
                         <div class="middilepost">
                           <div class="inline">
                             <h2><%=h listing.year %> - <%=h listing.make %> - <%=h listing.model %></h2>
-
                             <span class="mileage">Mileage : <%=h listing.mileage %></span> </div>
+                              <div class="wishlist">
+                                <h5>Wishlist</h5>
+                                  <p>Year: </p>
+                                  <p>Make:</p>
+                                  <p>Model: </p>
+                                  <p>Price: </p>
+                              </div>
                           <%unless listing.body.blank?%>
                               <span>Category - <%=h listing.body %></span>
                           <%end%>
@@ -164,10 +170,12 @@
                               <span><%=h listing.owner.city %>, <%=h listing.owner.state %></span> <img src="/assets/bubble.png" width="13" height="15" />
                           <%end%>
                           <%end%>
-                          <p class="description"></p>
-                          <%= link_to "View Details", listing_path(listing)%></div>
+                        </div>
                       </div>
-                      <div class="swap"> <span><sup>$</sup><%=h listing.price %></span> </div>
+                      <div class="swap"> <span><sup>$</sup><%=h listing.price %></span> 
+                       <p class="description"></p>
+                          <%= link_to "View Details", listing_path(listing)%>
+                      </div>
                       <div class="clear"></div>
                     </div>
                 <%end%>

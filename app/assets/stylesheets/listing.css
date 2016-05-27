@@ -87,11 +87,12 @@ body.whipdetails .contact {
 .post h2 {
     color: #545353;
     float: left;
-    font-size: 14px;
+    font-size: 18px;
     margin-right: 55px;
 }
 .post img {
     float: left;
+    padding-right: 15px;
 }
 
 .middilepost {
@@ -113,8 +114,8 @@ body.whipdetails .contact {
 
 
 .middilepost span {
-    color: #898989 !important;
-    font-size: 11px !important;
+    color: #545353 !important;
+    font-size: 13px !important;
     text-transform: none !important;
 }
 
@@ -134,15 +135,16 @@ body.whipdetails .contact {
 
 .post .swap {
     background-image: url("/assets/swap.png");
+    background-size: 90% 65%;
     background-repeat: no-repeat;
     color: #FFFFFF;
     float: right;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
-    height: 102px;
-    line-height: 79px;
-    margin-top: 19px;
-    padding: 3px 16px 0 31px;
+    height: 100px;
+    line-height: 50px;
+    margin-top: 50px;
+    padding: 5px 30px 0px 30px;
 }
 .swap span
 {
@@ -176,7 +178,7 @@ body.whipdetails .contact {
 .leftpost {
     border-bottom: 2px dashed #DDDDDD;
     float: left;
-    padding: 22px 30px 19px 0;
+    padding: 22px 30px 15px 0;
     width: 510px;
 }
 
@@ -226,4 +228,20 @@ body.whipdetails .contact {
 
 .post a.view_link:hover { background:#345c22;}
 
+.wishlist {
+    float: right;
+    border: 2px dashed #DDDDDD;
+    min-height: 90px;
+    min-width: 150px;
+    border-radius: 2px;
+    padding: 2px;
+}
+.wishlist h5 {
+    margin: 3px;
+    font-size: 12px; 
+}
 
+.wishlist p {
+    margin: 3px;
+    font-size: 11px; 
+}
