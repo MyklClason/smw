@@ -39,6 +39,18 @@ SmwSmw::Application.routes.draw do
 
   get 'pricing' => 'home#pricing', :as => :pricing
 
+  get 'trade-listings' => 'home#trade_listings', :as => :trade_listings
+
+  get 'cars-for-trade' => 'home#cars_for_trade', :as => :cars_for_trade
+
+  get 'motorcycle-swap' => 'home#motorcycle_swap', :as => :motorcycle_swap
+
+  get 'boats-for-trade' => 'home#boats_for_trade', :as => :boats_for_trade
+
+  get 'powersports-for-trade' => 'home#powersports_for_trade', :as => :powersports_for_trade
+
+  get 'user-resources' => 'home#user_resources', :as => :user_resources
+
   get 'whatiwant' => 'whatiwant#whatiwant', :as => :whatiwant
 
   resources :whatiwant do

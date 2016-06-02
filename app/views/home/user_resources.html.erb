@@ -1,0 +1,31 @@
+<% content_for :head do %>
+  <meta name="title" content="User Resources | Swap My Whip">
+  <meta name="description" content="We make trading cars online easy. Registered users have access to car &amp; vehicle listings, wishlists, and more! Signup for free and get started today!">
+<% end %>
+<div id="content">
+  <div class="page">
+    <h1>Swap My Whip User Resources</h1>
+    <p>Trading cars online doesn’t need to be difficult! That’s why our team has created several resources that make trading fun and easy instead of a stressful experience.</p>
+    <p>Our <%= link_to 'registered members', new_user_path, {:style=>'color:#649D4A'} %> have immediate access to the following resources:</p>
+    <ul class="benefits">
+      <li class="boldclass">A <%= link_to 'Favorites List', favorites_path, {:style=>'color:#649D4A'} %></li>
+        <p>At Swap My Whip, we have a large variety cars, trucks, boats, motorcycles, ATVs and more available for trade. Don’t worry about trying to keep track of everything you’re interested in, though! As a member, we allow you to mark the vehicles you like as Favorites. Those listings will remain in your Favorites List for as long as you want. That way, you can leave the site without worrying about needing to bookmark or save the cars you’re interested in!
+        </p>
+      <li class="boldclass">A <%= link_to 'Wishlist', wishlists_path, {:style=>'color:#649D4A'} %></li>
+        <p>In the market for a specific car, boat, or motorcycle? Tell the Swap My Whip world what you’re looking for!</p>
+        <p>By filling out a wishlist, others will be able to see what you’re willing to trade your whip for. Your Wishlist appears next to your live listings. This way, other registered members will be able to know before they message you whether they have something you’re looking for. While not mandatory by any means, completing a Wishlist is an easy way to facilitate a quick trading process! 
+        </p>
+      <li class="boldclass">A <%= link_to 'My Whip', new_user_path, {:style=>'color:#649D4A'} %> Section</li>
+        <p>Keep track of the vehicles you have available for trade. In your My Whip section, you can easily manage and edit your listings. Don’t forget — we offer tiered listing prices. From a free listing that remains live for seven days to a $12.99 listing that allows you HD images and runs until your vehicle sells, we have an option for you. <%= link_to 'Learn more!', pricing_path, {:style=>'color:#649D4A'} %>
+        </p>
+      <li class="boldclass">A Private Messaging System</li>
+        <p>All Swap My Whip members are given access to a secure private messaging system. This way, you can message other users about their listings without having to share your personal contact information.
+        </p>
+      <li class="boldclass">Email Alerts</li>
+      <p>As a member, you can opt into email alerts. With email alerts, you receive a message when our team locates a swap match for you!</p>
+    </ul>
+    <h2>Start Trading Today!</h2>
+    <p>What are you waiting for? Let’s get trading! Registration is fast and completely <span class="boldclass">free</span>. <%= link_to 'Get started today!', new_user_path, {:style=>'color:#649D4A'} %></p>
+    <p>Still have questions? Check out our <%= link_to 'FAQ', faq_path, {:style=>'color:#649D4A'} %> page for answers to frequently asked site and car trading questions!</p>
+  </div>
+</div>

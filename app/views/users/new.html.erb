@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <meta name="title" content="Register To Trade Your Car | Swap My Whip">
+  <meta name="description" content="Looking to trade your car? Swap My Whip is exclusively dedicated to vehicle trading. We offer both FREE and paid listings. Register now &amp; start trading!">
+<% end %>
 <script>
 
     jQuery(document).ready(function() {
@@ -26,14 +30,25 @@
       <div class="ad3"> <img src="/assets/ad3.jpg" width="300" height="250" /> </div>
     </div>
     <div class="leftcontent"><img src="/assets/listingpageimage.png" width="725" height="276" class="twocolumns p_img"/>
-      <div class="uppercontent"> <span class="boldclass">Register Now </span> <span>To Receive These Benefits</span>
-        <div class="boldheadings">
-          <p>&raquo; View All Listings For Free</p>
-          <p>&raquo; Save your search criteria in a wishlist</p>
-          <p>&raquo; Receive a Free Mailbox to correspond with other buyers, sellers, & Swappers</p>
-          <p>&raquo; Receive Email Alerts when a Swap match is located</p>
-        </div>
-        <div class="clear"></div>
+      <div class="uppercontent">
+        <h1>Register Today To Trade Your Car</h1>
+           <p>At Swap My Whip, we give you the tools to trade your car, boat, or vehicle in the way that makes sense for you. Unlike massive aggregators like Craigslist, our site is exclusively devoted to car trading and swapping. That means you get to talk with like-minded people, trade your vehicle faster, retain your car’s value, and get an all-around hassle-free experience.</p>
+        <h2>Registration is Free! </h2>
+          <p>Register today, and it won’t cost you a dime.</p>
+          <p>As a Swap My Whip member, you’ll get several <%= link_to "exclusive benefits", user_resources_path, {:style=>'color:#649D4A'} %>:</p>
+            <ul class="benefits">
+              <li>Save your search criteria in a wishlist.</li>
+              <li>Receive access to a mailbox where you can safely correspond with other site members, buyers, traders, and sellers.</li>
+              <li>Receive email alerts when our team locates a swap match for you!</li>
+              <li><%= link_to "Tiered listing options!", pricing_path, {:style=>'color:#649D4A'} %></li>
+              <ul class="benefits">
+                <li>Our Free Car Trade option allows your listing to remain live for seven days.</li>
+                <li>Our $9.99 Preferred Trade option allows you HD images and runs until your vehicle sells.</li>
+                <li>Our $12.99 Premium Trade option runs until your vehicle sells and allows you 15 HD images, a video link, and more!</li>
+              </ul>
+            </ul>
+            <p>And, as always, listings are free to view.</p>
+            <p>What are you waiting for? Fill out the form below, and let’s get trading!</p>
         <div class="contactwidget">
           <%= form_for(@user) do |f| %>
               <% if @user.errors.any? %>
